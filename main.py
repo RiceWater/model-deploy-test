@@ -28,6 +28,11 @@ async def testing():
     t = test()
     return {"Version" : t}
 
+@app.get("/test2/")
+async def testing2():
+    return {"Version" : "Test"}
+
+
 @app.post("/checkver/")
 async def create_check_ver(file: UploadFile = File(...)): 
     v = check_version()
