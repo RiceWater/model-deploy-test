@@ -10,9 +10,12 @@ MODEL = tf.keras.models.load_model('models/sample-thesis-dataset-v3_simple_BN-DO
 
 def check_version():
     try:
-        return tf.__version__
+        return np.__version__
     except Exception as e:
         return "library not found"
+    
+def test():
+    return "Test"
 
 def read_image(image_encoded):
     pil_image = Image.open(BytesIO(image_encoded)).convert('RGB')

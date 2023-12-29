@@ -1,6 +1,6 @@
 from fastapi import FastAPI, File, UploadFile
 from fastapi import HTTPException
-from prediction import check_version, predict_image, preprocess_image, read_image
+from prediction import check_version, predict_image, preprocess_image, read_image, test
 
 app = FastAPI()
 
@@ -22,6 +22,11 @@ async def create_upload_file(file: UploadFile = File(...)):
 async def version():
     v = check_version()
     return {"Version" : v}
+
+@app.get("/test/")
+async def testing():
+    t = test()
+    return {"Version" : t}
 
 @app.post("/checkver/")
 async def create_check_ver(file: UploadFile = File(...)): 
