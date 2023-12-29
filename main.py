@@ -1,4 +1,5 @@
 from fastapi import FastAPI, File, UploadFile
+from fastapi import HTTPException
 from prediction import predict_image, preprocess_image, read_image
 
 app = FastAPI()
@@ -9,7 +10,10 @@ async def home():
 
 @app.post("/uploadfile/")
 async def create_upload_file(file: UploadFile = File(...)):   
-    image = read_image(await file.read())
-    image = preprocess_image(image)
-    img_class = predict_image(image)
-    return {"Class": img_class}
+    try:
+        image = read_image(await file.read())
+        image = preprocess_image(image)
+        img_class = predict_image(image)
+        return {"Class": img_class}
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=f"Internal Server Error: {str(e)}")
