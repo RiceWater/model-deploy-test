@@ -17,7 +17,12 @@ async def create_upload_file(file: UploadFile = File(...)):
         return {"Class": img_class}
     except Exception as e:
         raise HTTPException(status_code=500, detail=f"Internal Server Error: {str(e)}")
-    
+
+@app.get("/getver/")
+async def version():
+    v = check_version()
+    return {"Version" : v}
+
 @app.post("/checkver/")
 async def create_check_ver(file: UploadFile = File(...)): 
     v = check_version()
