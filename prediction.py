@@ -8,6 +8,9 @@ import tensorflow as tf
 INPUT_SHAPE = (256,256)
 MODEL = tf.keras.models.load_model('models/sample-thesis-dataset-v3_simple_BN-DO.keras')
 
+def check_version():
+    return tf.__version__
+
 def read_image(image_encoded):
     pil_image = Image.open(BytesIO(image_encoded)).convert('RGB')
     return pil_image

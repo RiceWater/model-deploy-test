@@ -1,6 +1,6 @@
 from fastapi import FastAPI, File, UploadFile
 from fastapi import HTTPException
-from prediction import predict_image, preprocess_image, read_image
+from prediction import check_version, predict_image, preprocess_image, read_image
 
 app = FastAPI()
 
@@ -17,3 +17,8 @@ async def create_upload_file(file: UploadFile = File(...)):
         return {"Class": img_class}
     except Exception as e:
         raise HTTPException(status_code=500, detail=f"Internal Server Error: {str(e)}")
+    
+@app.post("/checkver/")
+async def create_check_ver(file: UploadFile = File(...)): 
+    v = check_version()
+    return {"Version" : v}
